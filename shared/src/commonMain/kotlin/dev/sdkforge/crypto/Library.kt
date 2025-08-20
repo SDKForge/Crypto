@@ -1,4 +1,4 @@
-package dev.sdkforge.template
+package dev.sdkforge.crypto
 
 import dev.sdkforge.template.Library.VERSION
 
