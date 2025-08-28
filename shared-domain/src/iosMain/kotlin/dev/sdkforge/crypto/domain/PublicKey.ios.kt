@@ -4,4 +4,4 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Security.SecKeyRef
 
 @OptIn(ExperimentalForeignApi::class)
-actual class PublicKey(private val key: SecKeyRef?) : Key by NativeIOSKey(key)
+actual data class PublicKey(private val key: SecKeyRef?) : Key by NativeIOSKey(key)
