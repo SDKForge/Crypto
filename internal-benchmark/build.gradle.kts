@@ -8,6 +8,8 @@ android {
     namespace = "dev.sdkforge.benchmark"
 
     defaultConfig {
+        minSdk = 23
+
         testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR,LOW-BATTERY"
     }
@@ -31,6 +33,8 @@ android {
 }
 
 dependencies {
+    androidTestImplementation(projects.shared)
+
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.junit)
