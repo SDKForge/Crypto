@@ -66,7 +66,7 @@ actual object KeyGenerator {
         CFBridgingRelease(keyPairAttributes)
 
         if (keyGenerationResultCode == noErr.toInt() && publicKey.value != null && privateKey.value != null) {
-            KeyPair(privateKey = PrivateKey(key = privateKey.value), publicKey = PublicKey(key = publicKey.value))
+            KeyPair(privateKey = NativePrivateKey(key = privateKey.value), publicKey = NativePublicKey(key = publicKey.value))
         } else {
             throw IllegalStateException("Error during key generation.")
         }

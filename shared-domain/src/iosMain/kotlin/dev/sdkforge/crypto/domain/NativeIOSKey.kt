@@ -24,7 +24,7 @@ import platform.Security.kSecAttrKeyType
 import platform.posix.memcpy
 
 @OptIn(ExperimentalForeignApi::class)
-internal class NativeIOSKey(private val key: SecKeyRef?) : Key {
+internal data class NativeIOSKey(private val key: SecKeyRef?) : Key {
 
     @OptIn(ExperimentalForeignApi::class)
     private val attributes by lazy { SecKeyCopyAttributes(key) }

@@ -26,8 +26,8 @@ actual object KeyGenerator {
         val keyPair = generator.generateKeyPair()
 
         return KeyPair(
-            publicKey = PublicKey(key = keyPair.public),
-            privateKey = PrivateKey(key = keyPair.private),
+            publicKey = NativePublicKey(key = keyPair.public),
+            privateKey = NativePrivateKey(key = keyPair.private),
         )
     }
 }

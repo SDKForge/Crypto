@@ -29,25 +29,36 @@ public final class dev/sdkforge/crypto/domain/KeyPair {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class dev/sdkforge/crypto/domain/PrivateKey : dev/sdkforge/crypto/domain/Key {
-	public fun <init> (Ljava/security/PrivateKey;)V
-	public final fun copy (Ljava/security/PrivateKey;)Ldev/sdkforge/crypto/domain/PrivateKey;
-	public static synthetic fun copy$default (Ldev/sdkforge/crypto/domain/PrivateKey;Ljava/security/PrivateKey;ILjava/lang/Object;)Ldev/sdkforge/crypto/domain/PrivateKey;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getAlgorithm ()Ljava/lang/String;
-	public fun getEncoded ()[B
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
+public final class dev/sdkforge/crypto/domain/NativePrivateKeyKt {
+	public static final fun getAsNativePrivateKey (Ldev/sdkforge/crypto/domain/PrivateKey;)Ljava/security/PrivateKey;
 }
 
-public final class dev/sdkforge/crypto/domain/PublicKey : dev/sdkforge/crypto/domain/Key {
-	public fun <init> (Ljava/security/PublicKey;)V
-	public final fun copy (Ljava/security/PublicKey;)Ldev/sdkforge/crypto/domain/PublicKey;
-	public static synthetic fun copy$default (Ldev/sdkforge/crypto/domain/PublicKey;Ljava/security/PublicKey;ILjava/lang/Object;)Ldev/sdkforge/crypto/domain/PublicKey;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getAlgorithm ()Ljava/lang/String;
-	public fun getEncoded ()[B
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
+public final class dev/sdkforge/crypto/domain/NativePublicKeyKt {
+	public static final fun getAsNativePublicKey (Ldev/sdkforge/crypto/domain/PublicKey;)Ljava/security/PublicKey;
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/PrivateKey : dev/sdkforge/crypto/domain/Key {
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/PublicKey : dev/sdkforge/crypto/domain/Key {
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/ec/ECKey {
+	public abstract fun getOrder ()Ljava/lang/String;
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/ec/ECPrivateKey : dev/sdkforge/crypto/domain/PrivateKey, dev/sdkforge/crypto/domain/ec/ECKey {
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/ec/ECPublicKey : dev/sdkforge/crypto/domain/PublicKey, dev/sdkforge/crypto/domain/ec/ECKey {
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/rsa/RSAKey {
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/rsa/RSAPrivateKey : dev/sdkforge/crypto/domain/PrivateKey, dev/sdkforge/crypto/domain/rsa/RSAKey {
+}
+
+public abstract interface class dev/sdkforge/crypto/domain/rsa/RSAPublicKey : dev/sdkforge/crypto/domain/PublicKey, dev/sdkforge/crypto/domain/rsa/RSAKey {
 }
 
