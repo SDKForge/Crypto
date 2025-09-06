@@ -1,6 +1,6 @@
 package dev.sdkforge.crypto
 
-import dev.sdkforge.template.Library.VERSION
+import dev.sdkforge.crypto.Library.VERSION
 
 /**
  * Library metadata and version information.
