@@ -1,4 +1,4 @@
-# SDKForge Template
+# SDKForge Crypto
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20--Beta2-blue.svg)](https://kotlinlang.org/)
 [![Android](https://img.shields.io/badge/Android-API%2021+-green.svg)](https://developer.android.com/)
@@ -6,13 +6,16 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey.svg)](https://kotlinlang.org/docs/multiplatform.html)
 
-A modern Kotlin Multiplatform SDK template for building cross-platform libraries and applications. This template provides a robust foundation for creating SDKs that work seamlessly across Android and iOS platforms. **Currently in development** - this template is designed to be forked and customized for your specific SDK needs.
+A modern Kotlin Multiplatform cryptographic library for secure key generation, encryption, and digital signatures across Android and iOS platforms. This library provides a unified API for cryptographic operations while leveraging platform-specific security features like Android Keystore and iOS Keychain.
 
 ## 🚀 Features
 
 - **Kotlin Multiplatform**: Write once, run on Android and iOS
+- **Cryptographic Key Generation**: RSA and Elliptic Curve (EC) key pair generation
+- **Platform-Specific Security**: Android Keystore and iOS Keychain integration
+- **Unified Crypto API**: Consistent interface across platforms for cryptographic operations
 - **Modern Architecture**: Clean, modular structure with separate modules for different concerns
-- **Compose Multiplatform**: Shared UI components using Jetpack Compose
+- **Type-Safe Design**: Strongly typed cryptographic primitives and operations
 - **Comprehensive Testing**: Unit tests, integration tests, and performance benchmarks
 - **Code Quality**: KtLint, dependency guard, and binary compatibility validation
 - **Documentation**: Automated API documentation with Dokka
@@ -29,12 +32,13 @@ A modern Kotlin Multiplatform SDK template for building cross-platform libraries
 ## 🏗️ Project Structure
 
 ```
-SDKForge.Template/
+SDKForge-Crypto/
 ├── app-android/         # Android sample application
 ├── app-ios/             # iOS sample application
 ├── app-shared/          # Shared sample UI components (Compose Multiplatform)
-├── shared/              # Main SDK library with all components
+├── shared/              # Main crypto library with all components
 ├── shared-core/         # Core shared functionality
+├── shared-domain/       # Cryptographic domain models and operations
 ├── shared-template/     # Template for shared modules
 ├── build-logic/         # Gradle build logic and conventions
 ├── internal-benchmark/  # Performance benchmarks
@@ -52,25 +56,32 @@ Once published, you'll be able to install the SDK using:
 #### Gradle (Kotlin DSL)
 ```kotlin
 dependencies {
-    implementation("dev.sdkforge.template:shared:1.0.0")
-    implementation("dev.sdkforge.template:shared-core:1.0.0")
+    implementation("dev.sdkforge.crypto:crypto:0.0.1")
+    implementation("dev.sdkforge.crypto:crypto-domain:0.0.1")
+    implementation("dev.sdkforge.crypto:crypto-core:0.0.1")
 }
 ```
 
 #### Gradle (Groovy)
 ```groovy
 dependencies {
-    implementation 'dev.sdkforge.template:shared:1.0.0'
-    implementation 'dev.sdkforge.template:shared-core:1.0.0'
+    implementation 'dev.sdkforge.crypto:crypto:0.0.1'
+    implementation 'dev.sdkforge.crypto:crypto-domain:0.0.1'
+    implementation 'dev.sdkforge.crypto:crypto-core:0.0.1'
 }
 ```
 
 #### Maven
 ```xml
 <dependency>
-    <groupId>dev.sdkforge.template</groupId>
-    <artifactId>shared</artifactId>
-    <version>1.0.0</version>
+    <groupId>dev.sdkforge.crypto</groupId>
+    <artifactId>crypto</artifactId>
+    <version>0.0.1</version>
+</dependency>
+<dependency>
+    <groupId>dev.sdkforge.crypto</groupId>
+    <artifactId>crypto-domain</artifactId>
+    <version>0.0.1</version>
 </dependency>
 ```
 
@@ -88,8 +99,8 @@ dependencies {
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/SDKForge/template-sdk.git SDKForgeTemplate
-   cd SDKForgeTemplate
+   git clone https://github.com/SDKForge/Crypto.git SDKForgeCrypto
+   cd SDKForgeCrypto
    ```
 
 2. **Build the project**:
@@ -107,92 +118,83 @@ dependencies {
    ./gradlew dokkaHtml
    ```
 
-### Using as a Template
+### Using the Crypto Library
 
-This project serves as a template for creating Kotlin Multiplatform SDKs. To use it:
+This library provides cryptographic functionality for Kotlin Multiplatform applications:
 
-1. **Fork or clone** this repository
-2. **Customize** the module names, package names, and functionality
-3. **Add your SDK logic** to the `shared-*` modules
-4. **Configure publishing** when ready to distribute
-5. **Update documentation** to reflect your specific SDK
+1. **Add dependencies** to your project
+2. **Import the crypto modules** you need
+3. **Use the unified API** for cryptographic operations
+4. **Leverage platform-specific security** features automatically
 
 ## 📖 Usage
 
-### Basic SDK Structure
+### Basic Crypto Operations
 
-The template provides a modular structure with platform-specific implementations:
+The library provides a unified interface for cryptographic operations across platforms:
 
 ```kotlin
-// Common interface (shared/src/commonMain/kotlin/dev/sdkforge/template/core/Platform.kt)
-interface Platform {
-    val name: String
-    val version: String
+// Common interface (shared-domain/src/commonMain/kotlin/dev/sdkforge/crypto/domain/KeyGenerator.kt)
+expect object KeyGenerator {
+    suspend fun generate(
+        algorithm: KeyAlgorithm,
+        identifier: String,
+        keySize: Int,
+    ): KeyPair
 }
 
-expect val currentPlatform: Platform
+// Supported algorithms
+enum class KeyAlgorithm {
+    RSA,
+    EC,
+}
+```
+
+### Key Generation Examples
+
+#### Generate RSA Key Pair
+```kotlin
+// Generate a 2048-bit RSA key pair
+val keyPair = KeyGenerator.generate(
+    algorithm = KeyAlgorithm.RSA,
+    identifier = "my-rsa-key",
+    keySize = 2048
+)
+
+println("Public Key: ${keyPair.publicKey.algorithm}")
+println("Private Key: ${keyPair.privateKey.algorithm}")
+```
+
+#### Generate Elliptic Curve Key Pair
+```kotlin
+// Generate an EC key pair (typically 256-bit)
+val ecKeyPair = KeyGenerator.generate(
+    algorithm = KeyAlgorithm.EC,
+    identifier = "my-ec-key",
+    keySize = 256
+)
 ```
 
 ### Platform-Specific Implementations
 
+The library automatically uses platform-specific security features:
+
 #### Android Implementation
-```kotlin
-// shared-core/src/androidMain/kotlin/dev/sdkforge/template/core/Platform.android.kt
-actual val currentPlatform: Platform = object : Platform {
-    override val name: String get() = "Android"
-    override val version: String get() = android.os.Build.VERSION.SDK_INT.toString()
-}
-```
+- Uses Android Keystore for secure key storage
+- Leverages hardware security modules when available
+- Integrates with Android's security architecture
 
 #### iOS Implementation
-```kotlin
-// shared-core/src/iosMain/kotlin/dev/sdkforge/template/core/Platform.ios.kt
-import platform.UIKit.UIDevice
+- Uses iOS Keychain for secure key storage
+- Leverages Secure Enclave when available
+- Integrates with iOS security framework
 
-actual val currentPlatform: Platform = object : Platform {
-    override val name: String get() = UIDevice.currentDevice.systemName
-    override val version: String get() = UIDevice.currentDevice.systemVersion
-}
-```
+### Library Version Information
 
-### Compose Multiplatform UI
-
-The template includes a shared UI component using Compose Multiplatform:
+Access library version information through the Library object:
 
 ```kotlin
-// app-shared/src/commonMain/kotlin/dev/sdkforge/template/app/App.kt
-@Composable
-fun App(
-    modifier: Modifier = Modifier,
-) = ApplicationTheme {
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(
-                space = 8.dp,
-                alignment = Alignment.CenterVertically,
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = "Platform name: ${currentPlatform.name}",
-            )
-            Text(
-                text = "Platform version: ${currentPlatform.version}",
-            )
-        }
-    }
-}
-```
-
-### SDK Version Information
-
-Access SDK version information through the Library object:
-
-```kotlin
-// shared/src/commonMain/kotlin/dev/sdkforge/template/Library.kt
+// shared/src/commonMain/kotlin/dev/sdkforge/crypto/Library.kt
 data object Library {
     const val VERSION = "0.0.1"
 }
@@ -284,26 +286,31 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Documentation**: Check our [documentation](https://github.com/SDKForge/template-sdk#readme)
-- **Issues**: [GitHub Issues](https://github.com/SDKForge/template-sdk/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/orgs/SDKForge/discussions)
+- **Documentation**: Check our [documentation](https://github.com/SDKForge/crypto#readme)
+- **Issues**: [GitHub Issues](https://github.com/SDKForge/crypto/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/SDKForge/Crypto/discussions)
 - **Email**: [volodymyr.nevmerzhytskyi@sdkforge.dev](mailto:volodymyr.nevmerzhytskyi@sdkforge.dev)
 
 ## 🗺️ Roadmap
 
+- [ ] **Encryption/Decryption** - Add symmetric and asymmetric encryption capabilities
+- [ ] **Digital Signatures** - Implement signing and verification functionality
+- [ ] **Hash Functions** - Add cryptographic hash functions (SHA-256, SHA-512, etc.)
+- [ ] **Key Exchange** - Implement key exchange protocols (ECDH, etc.)
 - [ ] **Publishing Setup** - Configure Maven Central or other repository publishing
 - [ ] **CI/CD Pipeline** - Automated publishing workflows
 - [ ] **Web platform support** - Extend to web platforms
 - [ ] **Desktop platform support** - Add desktop (Windows, macOS, Linux) support
 - [ ] **Enhanced performance monitoring** - Advanced benchmarking and profiling
-- [ ] **More UI components** - Additional Compose Multiplatform components
-- [ ] **Advanced configuration options** - Flexible SDK configuration
+- [ ] **More cryptographic algorithms** - Additional encryption and signature algorithms
+- [ ] **Advanced configuration options** - Flexible crypto library configuration
 - [ ] **Documentation site** - Dedicated documentation website
 
 ## 🙏 Acknowledgments
 
 - [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) team
-- [Jetpack Compose](https://developer.android.com/jetpack/compose) team
+- [Android Security](https://developer.android.com/topic/security) team
+- [iOS Security](https://developer.apple.com/security/) team
 - [JetBrains](https://www.jetbrains.com/) for excellent tooling
 - All contributors and community members
 

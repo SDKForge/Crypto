@@ -39,11 +39,11 @@ Before contributing, please:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/SDKForge/template-sdk.git SDKForgeTemplate
+   git clone https://github.com/SDKForge/Crypto.git SDKForgeCrypto
    or
-   git clone git@github.com:SDKForge/template-sdk.git SDKForgeTemplate
+   git clone git@github.com:SDKForge/Crypto.git SDKForgeCrypto
 
-   cd SDKForgeTemplate
+   cd SDKForgeCrypto
    ```
 
 2. **Build the project**:
@@ -58,15 +58,16 @@ Before contributing, please:
 
 ## Project Structure
 
-This is a Kotlin Multiplatform project with the following structure:
+This is a Kotlin Multiplatform cryptographic library with the following structure:
 
 ```
-SDKForge.Template/
+SDKForge-Crypto/
 ├── app-android/         # Android sample application
 ├── app-ios/             # iOS sample application
 ├── app-shared/          # Shared sample UI components (Compose Multiplatform)
 ├── shared/              # Library with all components
 ├── shared-core/         # Core shared functionality
+├── shared-domain/       # Cryptographic domain models and operations
 ├── shared-template/     # Template for shared modules
 ├── build-logic/         # Gradle build logic
 ├── internal-benchmark/  # Performance benchmarks
@@ -78,6 +79,7 @@ SDKForge.Template/
 - **Shared modules** (`shared*`): Should be platform-agnostic and reusable
 - **App modules** (`app*`): Platform-specific implementations
 - **Internal modules** (`internal*`): Build tools and utilities
+- **Domain module** (`shared-domain`): Contains cryptographic operations and domain models
 
 ## Branch and Commit Conventions
 
