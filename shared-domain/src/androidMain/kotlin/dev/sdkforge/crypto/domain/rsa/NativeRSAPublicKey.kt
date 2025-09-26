@@ -2,9 +2,11 @@
 
 package dev.sdkforge.crypto.domain.rsa
 
-import dev.sdkforge.crypto.domain.Key
-import dev.sdkforge.crypto.domain.NativeAndroidKey
+import dev.sdkforge.crypto.domain.NativePublicKey
 
 internal data class NativeRSAPublicKey(
-    private val key: java.security.interfaces.RSAPublicKey,
-) : RSAPublicKey, Key by NativeAndroidKey(key)
+    override val key: java.security.interfaces.RSAPublicKey,
+) : RSAPublicKey, NativePublicKey(key)
+
+val java.security.interfaces.RSAPublicKey.asNativeRSAPublicKey: RSAPublicKey
+    get() = NativeRSAPublicKey(this)

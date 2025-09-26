@@ -2,13 +2,15 @@
 
 package dev.sdkforge.crypto.domain.ec
 
-import dev.sdkforge.crypto.domain.Key
-import dev.sdkforge.crypto.domain.NativeAndroidKey
+import dev.sdkforge.crypto.domain.NativePrivateKey
 
 internal data class NativeECPrivateKey(
-    private val key: java.security.interfaces.ECPrivateKey,
-) : ECPrivateKey, Key by NativeAndroidKey(key) {
+    override val key: java.security.interfaces.ECPrivateKey,
+) : ECPrivateKey, NativePrivateKey(key) {
 
     override val order: String
         get() = key.params.order.toString()
 }
+
+val java.security.interfaces.ECPrivateKey.asNativeECPrivateKey: ECPrivateKey
+    get() = NativeECPrivateKey(this)
