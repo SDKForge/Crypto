@@ -18,5 +18,5 @@ data object Library {
      *
      * @return The version string (e.g., "1.0.0")
      */
-    const val VERSION = "0.0.1"
+    const val VERSION = "0.0.2"
 }
