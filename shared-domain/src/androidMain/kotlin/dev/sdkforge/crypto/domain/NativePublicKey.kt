@@ -2,8 +2,8 @@
 
 package dev.sdkforge.crypto.domain
 
-internal data class NativePublicKey(
-    internal val key: java.security.PublicKey,
+internal open class NativePublicKey(
+    internal open val key: java.security.PublicKey,
 ) : PublicKey, Key by NativeAndroidKey(key)
 
 // TODO: rethink this approach

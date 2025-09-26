@@ -53,6 +53,22 @@ public abstract interface class dev/sdkforge/crypto/domain/ec/ECPrivateKey : dev
 public abstract interface class dev/sdkforge/crypto/domain/ec/ECPublicKey : dev/sdkforge/crypto/domain/PublicKey, dev/sdkforge/crypto/domain/ec/ECKey {
 }
 
+public final class dev/sdkforge/crypto/domain/ec/NativeECPrivateKeyKt {
+	public static final fun getAsNativeECPrivateKey (Ljava/security/interfaces/ECPrivateKey;)Ldev/sdkforge/crypto/domain/ec/ECPrivateKey;
+}
+
+public final class dev/sdkforge/crypto/domain/ec/NativeECPublicKeyKt {
+	public static final fun getAsNativeECPublicKey (Ljava/security/interfaces/ECPublicKey;)Ldev/sdkforge/crypto/domain/ec/ECPublicKey;
+}
+
+public final class dev/sdkforge/crypto/domain/rsa/NativeRSAPrivateKeyKt {
+	public static final fun getAsNativeRSAPrivateKey (Ljava/security/interfaces/RSAPrivateKey;)Ldev/sdkforge/crypto/domain/rsa/RSAPrivateKey;
+}
+
+public final class dev/sdkforge/crypto/domain/rsa/NativeRSAPublicKeyKt {
+	public static final fun getAsNativeRSAPublicKey (Ljava/security/interfaces/RSAPublicKey;)Ldev/sdkforge/crypto/domain/rsa/RSAPublicKey;
+}
+
 public abstract interface class dev/sdkforge/crypto/domain/rsa/RSAKey {
 }
 
