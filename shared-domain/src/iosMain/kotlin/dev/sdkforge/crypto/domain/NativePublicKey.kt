@@ -3,9 +3,13 @@
 package dev.sdkforge.crypto.domain
 
 import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Security.SecKeyRef
 
 @OptIn(ExperimentalForeignApi::class)
-internal data class NativePublicKey(
-    private val key: SecKeyRef?,
+internal open class NativePublicKey(
+    internal open val key: platform.Security.SecKeyRef,
 ) : PublicKey, Key by NativeIOSKey(key)
+
+// TODO: rethink this approach
+@OptIn(ExperimentalForeignApi::class)
+val PublicKey.asNativePublicKey: platform.Security.SecKeyRef
+    get() = (this as NativePublicKey).key

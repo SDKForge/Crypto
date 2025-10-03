@@ -19,12 +19,11 @@ import platform.Foundation.CFBridgingRelease
 import platform.Foundation.NSData
 import platform.Security.SecKeyCopyAttributes
 import platform.Security.SecKeyCopyExternalRepresentation
-import platform.Security.SecKeyRef
 import platform.Security.kSecAttrKeyType
 import platform.posix.memcpy
 
 @OptIn(ExperimentalForeignApi::class)
-internal data class NativeIOSKey(private val key: SecKeyRef?) : Key {
+internal data class NativeIOSKey(private val key: platform.Security.SecKeyRef) : Key {
 
     @OptIn(ExperimentalForeignApi::class)
     private val attributes by lazy { SecKeyCopyAttributes(key) }

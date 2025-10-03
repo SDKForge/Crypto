@@ -1,17 +1,18 @@
 @file:Suppress("ktlint:standard:class-signature")
+@file:OptIn(ExperimentalForeignApi::class)
 
 package dev.sdkforge.crypto.domain.ec
 
-import dev.sdkforge.crypto.domain.Key
-import dev.sdkforge.crypto.domain.NativeIOSKey
+import dev.sdkforge.crypto.domain.NativePublicKey
 import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Security.SecKeyRef
 
-@OptIn(ExperimentalForeignApi::class)
 internal data class NativeECPublicKey(
-    private val key: SecKeyRef?,
-) : ECPublicKey, Key by NativeIOSKey(key) {
+    override val key: platform.Security.SecKeyRef,
+) : ECPublicKey, NativePublicKey(key) {
 
     override val order: String
         get() = TODO("Not yet implemented")
 }
+
+val platform.Security.SecKeyRef.asNativeECPublicKey: ECPublicKey
+    get() = NativeECPublicKey(this)

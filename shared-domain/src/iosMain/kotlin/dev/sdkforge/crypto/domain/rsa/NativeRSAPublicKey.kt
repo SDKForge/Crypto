@@ -1,13 +1,14 @@
 @file:Suppress("ktlint:standard:class-signature")
+@file:OptIn(ExperimentalForeignApi::class)
 
 package dev.sdkforge.crypto.domain.rsa
 
-import dev.sdkforge.crypto.domain.Key
-import dev.sdkforge.crypto.domain.NativeIOSKey
+import dev.sdkforge.crypto.domain.NativePublicKey
 import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Security.SecKeyRef
 
-@OptIn(ExperimentalForeignApi::class)
 internal data class NativeRSAPublicKey(
-    private val key: SecKeyRef?,
-) : RSAPublicKey, Key by NativeIOSKey(key)
+    override val key: platform.Security.SecKeyRef,
+) : RSAPublicKey, NativePublicKey(key)
+
+val platform.Security.SecKeyRef.asNativeRSAPublicKey: RSAPublicKey
+    get() = NativeRSAPublicKey(this)
