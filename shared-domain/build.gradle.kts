@@ -9,6 +9,12 @@ plugins {
 }
 
 kotlin {
+    androidLibrary {
+        namespace = "dev.sdkforge.crypto.domain"
+
+        minSdk = 23
+    }
+
     sourceSets {
         commonMain {
             dependencies {
@@ -20,13 +26,5 @@ kotlin {
                 implementation(libs.kotlin.test)
             }
         }
-    }
-}
-
-android {
-    namespace = "dev.sdkforge.crypto.domain"
-
-    defaultConfig {
-        minSdk = 23
     }
 }
