@@ -1,0 +1,64 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <dev.sdkforge.crypto:shared-domain>
+final enum class dev.sdkforge.crypto.domain/KeyAlgorithm : kotlin/Enum<dev.sdkforge.crypto.domain/KeyAlgorithm> { // dev.sdkforge.crypto.domain/KeyAlgorithm|null[0]
+    enum entry EC // dev.sdkforge.crypto.domain/KeyAlgorithm.EC|null[0]
+    enum entry RSA // dev.sdkforge.crypto.domain/KeyAlgorithm.RSA|null[0]
+
+    final val entries // dev.sdkforge.crypto.domain/KeyAlgorithm.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.sdkforge.crypto.domain/KeyAlgorithm> // dev.sdkforge.crypto.domain/KeyAlgorithm.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.sdkforge.crypto.domain/KeyAlgorithm // dev.sdkforge.crypto.domain/KeyAlgorithm.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.sdkforge.crypto.domain/KeyAlgorithm> // dev.sdkforge.crypto.domain/KeyAlgorithm.values|values#static(){}[0]
+}
+
+abstract interface dev.sdkforge.crypto.domain.ec/ECKey { // dev.sdkforge.crypto.domain.ec/ECKey|null[0]
+    abstract val order // dev.sdkforge.crypto.domain.ec/ECKey.order|{}order[0]
+        abstract fun <get-order>(): kotlin/String // dev.sdkforge.crypto.domain.ec/ECKey.order.<get-order>|<get-order>(){}[0]
+}
+
+abstract interface dev.sdkforge.crypto.domain.ec/ECPrivateKey : dev.sdkforge.crypto.domain.ec/ECKey, dev.sdkforge.crypto.domain/PrivateKey // dev.sdkforge.crypto.domain.ec/ECPrivateKey|null[0]
+
+abstract interface dev.sdkforge.crypto.domain.ec/ECPublicKey : dev.sdkforge.crypto.domain.ec/ECKey, dev.sdkforge.crypto.domain/PublicKey // dev.sdkforge.crypto.domain.ec/ECPublicKey|null[0]
+
+abstract interface dev.sdkforge.crypto.domain.rsa/RSAKey // dev.sdkforge.crypto.domain.rsa/RSAKey|null[0]
+
+abstract interface dev.sdkforge.crypto.domain.rsa/RSAPrivateKey : dev.sdkforge.crypto.domain.rsa/RSAKey, dev.sdkforge.crypto.domain/PrivateKey // dev.sdkforge.crypto.domain.rsa/RSAPrivateKey|null[0]
+
+abstract interface dev.sdkforge.crypto.domain.rsa/RSAPublicKey : dev.sdkforge.crypto.domain.rsa/RSAKey, dev.sdkforge.crypto.domain/PublicKey // dev.sdkforge.crypto.domain.rsa/RSAPublicKey|null[0]
+
+abstract interface dev.sdkforge.crypto.domain/Key { // dev.sdkforge.crypto.domain/Key|null[0]
+    abstract val algorithm // dev.sdkforge.crypto.domain/Key.algorithm|{}algorithm[0]
+        abstract fun <get-algorithm>(): kotlin/String // dev.sdkforge.crypto.domain/Key.algorithm.<get-algorithm>|<get-algorithm>(){}[0]
+    abstract val encoded // dev.sdkforge.crypto.domain/Key.encoded|{}encoded[0]
+        abstract fun <get-encoded>(): kotlin/ByteArray? // dev.sdkforge.crypto.domain/Key.encoded.<get-encoded>|<get-encoded>(){}[0]
+}
+
+abstract interface dev.sdkforge.crypto.domain/PrivateKey : dev.sdkforge.crypto.domain/Key // dev.sdkforge.crypto.domain/PrivateKey|null[0]
+
+abstract interface dev.sdkforge.crypto.domain/PublicKey : dev.sdkforge.crypto.domain/Key // dev.sdkforge.crypto.domain/PublicKey|null[0]
+
+final class dev.sdkforge.crypto.domain/KeyPair { // dev.sdkforge.crypto.domain/KeyPair|null[0]
+    constructor <init>(dev.sdkforge.crypto.domain/PublicKey, dev.sdkforge.crypto.domain/PrivateKey) // dev.sdkforge.crypto.domain/KeyPair.<init>|<init>(dev.sdkforge.crypto.domain.PublicKey;dev.sdkforge.crypto.domain.PrivateKey){}[0]
+
+    final val privateKey // dev.sdkforge.crypto.domain/KeyPair.privateKey|{}privateKey[0]
+        final fun <get-privateKey>(): dev.sdkforge.crypto.domain/PrivateKey // dev.sdkforge.crypto.domain/KeyPair.privateKey.<get-privateKey>|<get-privateKey>(){}[0]
+    final val publicKey // dev.sdkforge.crypto.domain/KeyPair.publicKey|{}publicKey[0]
+        final fun <get-publicKey>(): dev.sdkforge.crypto.domain/PublicKey // dev.sdkforge.crypto.domain/KeyPair.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
+
+    final fun component1(): dev.sdkforge.crypto.domain/PublicKey // dev.sdkforge.crypto.domain/KeyPair.component1|component1(){}[0]
+    final fun component2(): dev.sdkforge.crypto.domain/PrivateKey // dev.sdkforge.crypto.domain/KeyPair.component2|component2(){}[0]
+    final fun copy(dev.sdkforge.crypto.domain/PublicKey = ..., dev.sdkforge.crypto.domain/PrivateKey = ...): dev.sdkforge.crypto.domain/KeyPair // dev.sdkforge.crypto.domain/KeyPair.copy|copy(dev.sdkforge.crypto.domain.PublicKey;dev.sdkforge.crypto.domain.PrivateKey){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.sdkforge.crypto.domain/KeyPair.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.sdkforge.crypto.domain/KeyPair.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.sdkforge.crypto.domain/KeyPair.toString|toString(){}[0]
+}
+
+final object dev.sdkforge.crypto.domain/KeyGenerator { // dev.sdkforge.crypto.domain/KeyGenerator|null[0]
+    final suspend fun generate(dev.sdkforge.crypto.domain/KeyAlgorithm, kotlin/String, kotlin/Int): dev.sdkforge.crypto.domain/KeyPair // dev.sdkforge.crypto.domain/KeyGenerator.generate|generate(dev.sdkforge.crypto.domain.KeyAlgorithm;kotlin.String;kotlin.Int){}[0]
+}
